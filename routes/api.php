@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\RegularUser;
+use App\Http\Controllers\RegularUserController;
+use App\Http\Controllers\CardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +23,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
 });
+
+
+
+
+Route::controller(RegularUserController::class)->group(function () { 
+
+Route::post('/createReguarUser', 'createRegularUsers');
+Route::post('/updateUser', 'updateUser');
+Route::get('/deleteUser', 'deleteUser');
+
+    });
+
+Route::controller(cardController::class)->group(function () { 
+
+Route::post('/createCard', 'createCard');
+Route::post('/updateCard', 'updateCard');
+
+  });
