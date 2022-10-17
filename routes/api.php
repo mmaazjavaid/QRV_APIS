@@ -24,12 +24,8 @@ Route::post('/signup', [AuthController::class, 'sign_up']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // protected routes go here
-    Route::post('/logout', [AuthController::class, 'logout']);
-
-Route::post('/addCustomLink', 'addCustomLink');
-Route::post('/updateCustomLink', 'updateCustomLink');
-Route::get('/deleteCustomLink', 'deleteCustomLink');
-  });
+Route::post('/logout', [AuthController::class, 'logout']);
+});
 
 
 
