@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResellerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +19,13 @@ Route::post('/signup', [AuthController::class, 'sign_up']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     // protected routes go here
+
+    //----------------------------------------reseller apis
+   
+    
     Route::post('/logout', [AuthController::class, 'logout']);
 
 });
+
+
+Route::post('/createReseller',[ResellerController::class,'createAccount']);
