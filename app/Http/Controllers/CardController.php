@@ -4,12 +4,55 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Card;
+use App\Models\RegularUser;
+use App\Models\CustomLink;
+use App\Models\UserSocial;
+use App\Models\SocialLink;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 
 class CardController extends Controller
 {
+    public function getUserAllCards()
+    {
+        try{
+        //$id=Auth::id();
+            $id=1;
+        $allCards=Card::where('userId',$id)->get();
+
+        return response(['message'=>'success','data'=>$allCards],200);
+            }
+    catch (\Throwable $th) {
+            throw $th;
+        }
+
+    }
+
+         public function userSpecificCard(Request $request)
+    {
+        try{
+        //$id=Auth::id();
+            $id=1;
+        $user=RegularUser::find($id);
+        $card=Card::where('id',$request->cardId)->where('userId',$id)->first();
+        $userSocials=UserSocial::where('userId',$id)->where('cardId',$request->cardId)->get();
+        $customLinks=CustomLink::where('userId',$id)->where('cardId',$request->cardId)->get();
+
+        //return $userSocials;
+        $card['user']=$user;
+        $card['socialLinks']=$userSocials;
+         $card['customLinks']=$customLinks;
+
+       
+        return response(['message'=>'success','data'=>$card],200);
+
+            }
+    catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     
     public function createCard(Request $request)
     {
@@ -28,7 +71,7 @@ class CardController extends Controller
 
         $card = Card::create([
             'cardName'=>$request->cardName,
-            'user_id'=>$userId,
+            'userId'=>$userId,
             'randomId'=>str::random(10)
         ]); 
 
@@ -80,6 +123,22 @@ class CardController extends Controller
             throw $th;
         }
 
+
+    }
+
+      public function deleteCard(Request $request)
+    {
+        try 
+        {   
+
+        Card::where('id',$request->id)->delete();
+        return response(['message'=>'card deleted successfully'],200);
+
+        }
+        catch (\Throwable $th) {
+            throw $th;
+        
+        }
 
     }
 

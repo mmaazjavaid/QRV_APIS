@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('social_links', function (Blueprint $table) {
-                $table->id();
-            $table->string('link_name');
-            $table->string('link_image');
-            $table->string('base_url');
+        Schema::create('user_socials', function (Blueprint $table) {
+            $table->id();
+            $table->integer('userId');
+            $table->integer('socialId');
+            $table->integer('cardId');
+            $table->string('linkUrl')->default('')->nullable();
+            $table->string('linkText')->default('')->nullable();
+            $table->integer('clicks')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_links');
+        Schema::dropIfExists('user_socials');
     }
 };

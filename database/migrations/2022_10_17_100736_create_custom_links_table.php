@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cards', function (Blueprint $table) {
-            $table->id();
+        Schema::create('custom_links', function (Blueprint $table) {
+             $table->id();
             $table->integer('userId');
-            $table->string('randomId')->default("")->nullable();
-            $table->string('cardName')->default("")->nullable();
-            $table->string('profileImg')->default("")->nullable();
-            $table->string('coverImg')->default("")->nullable();
-            $table->string('status')->default(1)->nullable();
+            $table->integer('cardId');
+            $table->string('linkName')->default('')->nullable();
+            $table->string('linkUrl')->default('')->nullable(); 
+            $table->string('linkImg')->default('')->nullable(); 
+            $table->integer('clicks')->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cards');
+        Schema::dropIfExists('custom_links');
     }
 };
