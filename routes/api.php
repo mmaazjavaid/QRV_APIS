@@ -15,17 +15,4 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/signup', [AuthController::class, 'sign_up']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    // protected routes go here
 
-    //----------------------------------------reseller apis
-   
-    
-    Route::post('/logout', [AuthController::class, 'logout']);
-
-});
-
-
-Route::post('/createReseller',[ResellerController::class,'createAccount']);
